@@ -1,0 +1,193 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.firstproject</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.mariuszgromada.math.mxparser.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Build</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.text.SpannableStringBuilder</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s0">private </span><span class="s1">EditText display</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String strToAdd</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s1">display = findViewById(R.id.textView)</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {</span>
+            <span class="s1">display.setShowSoftInputOnFocus(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">display.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+                <span class="s0">if </span><span class="s1">(getString(R.string.display).equals(display.getText().toString()))</span>
+                    <span class="s1">display.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+     <span class="s0">private void </span><span class="s1">updateText(String strToAdd) {</span>
+         <span class="s0">this</span><span class="s1">.strToAdd = strToAdd</span><span class="s0">;</span>
+         <span class="s1">String oldStr = display.getText().toString()</span><span class="s0">;</span>
+         <span class="s0">int </span><span class="s1">cursorPos = display.getSelectionStart()</span><span class="s0">;</span>
+         <span class="s1">String LeftStr = oldStr.substring(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">cursorPos)</span><span class="s0">;</span>
+         <span class="s1">String rightStr = oldStr.substring(cursorPos)</span><span class="s0">;</span>
+         <span class="s0">if </span><span class="s1">(getString(R.string.display).equals(display.getText().toString()))</span>
+             <span class="s1">display.setText(strToAdd)</span><span class="s0">;</span>
+         <span class="s0">else </span><span class="s1">{</span>
+             <span class="s1">display.setText(String.format(</span><span class="s2">&quot;%s%s%s&quot;</span><span class="s0">, </span><span class="s1">LeftStr</span><span class="s0">, </span><span class="s1">strToAdd</span><span class="s0">, </span><span class="s1">rightStr))</span><span class="s0">;</span>
+         <span class="s1">}</span>
+        <span class="s1">display.setSelection(cursorPos +</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+     <span class="s1">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">zeroBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;0&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">oneBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;1&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">twoBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;2&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">threeBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;3&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">fourBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;4&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">fiveBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;5&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">sixBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;6&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">sevenBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;7&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">eightBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;8&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">nineBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;9&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">clearBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">parenthesisBN(View view) {</span>
+        <span class="s0">int </span><span class="s1">cursorPos = display.getSelectionStart()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">openPar = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">closedPar = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">textLen = display.getText().length()</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; cursorPos</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if </span><span class="s1">(display.getText().toString().substring(i</span><span class="s0">, </span><span class="s1">i + </span><span class="s3">1</span><span class="s1">).equals(</span><span class="s2">&quot;(&quot;</span><span class="s1">)) {</span>
+                <span class="s1">openPar += </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(display.getText().toString().substring(i</span><span class="s0">, </span><span class="s1">i + </span><span class="s3">1</span><span class="s1">).equals(</span><span class="s2">&quot;)&quot;</span><span class="s1">)) {</span>
+                <span class="s1">closedPar += </span><span class="s3">1</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(openPar == closedPar || display.getText().toString().substring(textLen - </span><span class="s3">1</span><span class="s0">, </span><span class="s1">textLen).equals(</span><span class="s2">&quot;(&quot;</span><span class="s1">))</span>
+            <span class="s1">updateText(strToAdd:</span><span class="s2">&quot;(&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">display.setSelection(cursorPos + </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+
+
+            <span class="s0">else if </span><span class="s1">(closedPar &lt; openPar || !display.getText().toString().substring(textLen-</span><span class="s3">1</span><span class="s0">, </span><span class="s1">textLen).equals(</span><span class="s2">&quot;)&quot;</span><span class="s1">))</span>
+            <span class="s1">updateText(strToAdd:</span><span class="s2">&quot;)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">display.setSelection(cursorPos + </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">plusBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;+&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">minusBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;-&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">pointBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;.&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">multiplyBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;*&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">divideBN(View view) {</span>
+        <span class="s1">updateText(</span><span class="s2">&quot;/&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+     <span class="s0">public void </span><span class="s1">backspaceBN(View view) {</span>
+        <span class="s0">int </span><span class="s1">cursorPos = display.getSelectionStart()</span><span class="s0">;</span>
+       <span class="s0">int </span><span class="s1">textLen = display.getText().length()</span><span class="s0">;</span>
+
+
+
+        <span class="s0">if </span><span class="s1">(cursorPos != </span><span class="s3">0 </span><span class="s1">&amp;&amp; textLen != </span><span class="s3">0</span><span class="s1">) {</span>
+            <span class="s1">SpannableStringBuilder selection = (SpannableStringBuilder) display.getText()</span><span class="s0">;</span>
+            <span class="s1">selection.replace( cursorPos -</span><span class="s3">1</span><span class="s0">, </span><span class="s1">cursorPos</span><span class="s0">, </span><span class="s1">tb: </span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">display.setText(selection)</span><span class="s0">;</span>
+            <span class="s1">display.setSelection(cursorPos -</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+        <span class="s0">public void </span><span class="s1">EqualsBN(View view) {</span>
+            <span class="s1">String userExp = display.getText().toString()</span><span class="s0">;</span>
+
+            <span class="s1">userExp = userExp.replaceAll(regex: </span><span class="s2">&quot;÷&quot;</span><span class="s0">, </span><span class="s1">replacement: </span><span class="s2">&quot;/&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">expression exp = </span><span class="s0">new </span><span class="s1">Expression(userExp)</span><span class="s0">;</span>
+
+            <span class="s1">string result = string.valueOf(exp.calculate())</span><span class="s0">;</span>
+
+            <span class="s1">display.setText(result)</span><span class="s0">;</span>
+            <span class="s1">display.setSelection(result.length())</span><span class="s0">;</span>
+
+
+
+
+
+
+
+
+
+
+<span class="s1">}</span></pre>
+</body>
+</html>
